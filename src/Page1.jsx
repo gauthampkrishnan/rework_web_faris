@@ -24,7 +24,7 @@ function PageOne() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-90 w-auto"
-            src="image.png"
+            src="Image.png"
             alt="Your Company"
           />
           <h2 className="mt-2 text-center text-2xl  leading-6 tracking-tight text-gray-900">
