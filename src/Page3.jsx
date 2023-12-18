@@ -163,7 +163,7 @@ function PageThree() {
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-lg">
           <div className="space-y-6">
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               <div className="flex items-center space-x-2">
                 <input
                   id="appetizer"
