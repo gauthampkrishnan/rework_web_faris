@@ -18,13 +18,13 @@ function PageOne() {
   return (
     <>
       <h1 className="text-center text-2xl font-bold leading-8 tracking-tight text-gray-900">
-         Sitar Catering Order Service{' '}
+        Sitar Catering Order Service{' '}
       </h1>
       <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-90 w-auto"
-            src="Image.png"
+            src="image.png"
             alt="Your Company"
           />
           <h2 className="mt-2 text-center text-2xl  leading-6 tracking-tight text-gray-900">
