@@ -3,7 +3,7 @@ import './index.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import DataContext from './DataContext';
-
+import Image1 from '../Image.png';
 function PageOne() {
   const { data, handleSetData } = useContext(DataContext);
   let navigate = useNavigate();
@@ -24,7 +24,7 @@ function PageOne() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-90 w-auto"
-            src="Image.png"
+            src={Image1}
             alt="Your Company"
           />
           <h2 className="mt-2 text-center text-2xl  leading-6 tracking-tight text-gray-900">
