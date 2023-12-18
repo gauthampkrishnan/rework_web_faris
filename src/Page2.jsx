@@ -3,7 +3,7 @@ import './index.css';
 import { useNavigate } from 'react-router-dom';
 import DataContext from './DataContext';
 import { useContext } from 'react';
-
+import Image2 from '../Image02.jpg';
 function PageTwo() {
   const { data, handleSetData } = useContext(DataContext);
   let navigate = useNavigate();
@@ -28,7 +28,7 @@ function PageTwo() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-90 w-auto"
-            src="Image02.jpg"
+            src={Image2}
             alt="Your Company"
           />
           <h2 className="mt-2 text-center text-2xl  leading-6 tracking-tight text-gray-900">
@@ -49,8 +49,7 @@ function PageTwo() {
               </div>
               <div className="mt-1">
                 <select
-
-                id="eventTypes"
+                  id="eventTypes"
                   name="eventTypes"
                   onChange={handleInputChange}
                   value={data.eventTypes}
@@ -79,8 +78,6 @@ function PageTwo() {
               <div className="flex items-center justify-between mt-2">
                 <label
                   htmlFor="location"
-          
-
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Location
@@ -234,7 +231,7 @@ function PageTwo() {
                 Next
               </button>
             </div>
-         </div>
+          </div>
         </div>
       </div>
     </>

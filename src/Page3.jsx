@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-
+import Image3 from '../Image03.png';
 import DataContext from './DataContext';
 import { useContext } from 'react';
 function PageThree() {
@@ -153,7 +153,7 @@ function PageThree() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-90 w-auto"
-            src="Image03.png"
+            src={Image3}
             alt="Your Company"
           />
           <h2 className="mt-2 text-center text-2xl  leading-6 tracking-tight text-gray-900">
