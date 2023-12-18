@@ -15,14 +15,15 @@ export const DataProvider = ({ children }) => {
     eventPhone:'',
     perHead:true,
     perHeadCount:'',
-    dishes:[]
+    dishes:[],
+    time:''
     // Add additional fields as needed
   });
 
   const handleSetData = (fieldName, value) => {
-    console.log(data)
+
     setData((prevData) => ({ ...prevData, [fieldName]: value }));
-    console.log(data)
+   
   };
 
   return (
