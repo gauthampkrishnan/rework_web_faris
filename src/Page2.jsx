@@ -17,9 +17,7 @@ function PageTwo() {
   };
 
   const handleNext = () => {
-    if (data.plannedBudget > 0) {
-      navigate('/page-three');
-    }
+    navigate('/page-three');
   };
 
   return (
