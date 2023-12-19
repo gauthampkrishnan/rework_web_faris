@@ -91,7 +91,7 @@ function PageTwo() {
                   <input
                     id="location"
                     name="eventLocation"
-                    type="email"
+                    type="text"
                     autoComplete="location"
                     onChange={handleInputChange}
                     value={data.eventLocation}

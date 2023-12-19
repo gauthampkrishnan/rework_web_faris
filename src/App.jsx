@@ -1,11 +1,8 @@
 import './App.css';
-import Header from './Header';
-import PersonalInfo from './PersonalInfo';
-import EventInfo from './EventInfo';
+
 import React, { useState } from 'react';
 
 import { DataProvider } from './DataContext';
-import SubmitButton from './Submit';
 import PageOne from './Page1';
 import PageTwo from './Page2';
 import PageThree from './Page3';
