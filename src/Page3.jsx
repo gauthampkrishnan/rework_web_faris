@@ -163,7 +163,7 @@ function PageThree() {
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-lg flex flex-col align-center justify-center">
           <div className="space-y-6 w-full text-center">
-            <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 gap-4 align-middle">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 align-center justify-center">
               <div className="flex items-center space-x-2">
                 <input
                   id="appetizer"
@@ -177,7 +177,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="appetizer"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900"
                 >
                   Appetizer
                 </label>
@@ -195,7 +195,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="chicken"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900"
                 >
                   Chicken
                 </label>
@@ -213,7 +213,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="beverages"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   Beverages
                 </label>
@@ -231,7 +231,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="seafoods"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   Seafoods
                 </label>
@@ -249,7 +249,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="desserts"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   Desserts
                 </label>
@@ -267,7 +267,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="breakfast"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   Breakfast
                 </label>
@@ -284,7 +284,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="soup"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   Soup
                 </label>
@@ -301,7 +301,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="maincourse"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   Main Course
                 </label>
@@ -321,7 +321,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="southindianspecial"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   South Indian Special
                 </label>
@@ -339,7 +339,7 @@ function PageThree() {
                 />
                 <label
                   htmlFor="chefspecial"
-                  className="text-sm font-medium text-gray-900 truncate"
+                  className="text-sm font-medium text-gray-900 "
                 >
                   Chef Special
                 </label>
