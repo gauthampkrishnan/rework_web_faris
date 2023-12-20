@@ -371,7 +371,7 @@ function PageThree() {
             <div className="flex flex-row">
               {/* Column 1: Iterated Data */}
               {Array.isArray(datum) && datum.length > 0 ? (
-                <div className="flex flex-col items-start ml-5 pr-5 pb-5 pl-5 mr-5 border border-indigo-600 rounded-md shadow-xl relative">
+                <div className="flex flex-col items-start ml-5 pr-5 pb-5 pl-5 mr-8 border border-indigo-600 rounded-md shadow-xl relative">
                   {datum.map((item, index) => (
                     <div key={index} className="flex w-full items-start">
                       <input
@@ -391,7 +391,7 @@ function PageThree() {
 
               {/* Column 2: Welcome Message */}
               {Array.isArray(datum) && dishes.length > 0 && (
-                <div className="flex flex-col items-start ml-5 pr-5 pb-5 pl-5 mr-5 border border-indigo-600 rounded-md shadow-xl relative">
+                <div className="flex flex-col items-start ml-8 pr-8 pb-5 pl-5 mr-5 border border-indigo-600 rounded-md shadow-xl relative">
                   <div>
                     {dishes.map((dish) => (
                       <div key={dish.id}>
@@ -406,7 +406,7 @@ function PageThree() {
                           <input
                             type="number"
                             placeholder="Quantity"
-                            className="w-16 px-2 py-1 border  border-gray-400 rounded"
+                            className="w-16 px-1 py-1 border  border-gray-400 rounded"
                             onChange={(e) => handleQuantityChange(e, dish.id)}
                           />
                         </div>
