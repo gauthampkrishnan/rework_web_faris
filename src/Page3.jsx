@@ -306,7 +306,7 @@ function PageThree() {
                   Main Course
                 </label>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center ">
                 <input
                   id="southindianspecial"
                   name="southindianspecial"
@@ -371,37 +371,27 @@ function PageThree() {
             <div className="flex flex-row">
               {/* Column 1: Iterated Data */}
               {Array.isArray(datum) && datum.length > 0 ? (
-                <div className="flex-1 p-16 ml-5 mr-5 border border-indigo-600 rounded-md shadow-xl relative">
+                <div className="flex flex-col items-start ml-5 pr-5 pb-5 pl-5 mr-5 border border-indigo-600 rounded-md shadow-xl relative">
                   {datum.map((item, index) => (
-                    <div key={index}>
-                      <div className="flex flex-row items-center justify-center ">
-                        <div className="flex flex-row">
-                          <div className="flex">
-                            <input
-                              className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                              type="checkbox"
-                              value={item['Dish']}
-                              checked={checkboxStatus[index]}
-                              onChange={(e) =>
-                                handleSelect(index, e, item['Cost'])
-                              }
-                            />
-                          </div>
-                          <div className="flex">
-                            <p className="text-sm font-medium ml-1 text-gray-900">
-                              {item['Dish']}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                    <div key={index} className="flex w-full items-start">
+                      <input
+                        className="form-checkbox rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 mt-1"
+                        type="checkbox"
+                        value={item['Dish']}
+                        checked={checkboxStatus[index]}
+                        onChange={(e) => handleSelect(index, e, item['Cost'])}
+                      />
+                      <label className="text-sm font-medium ml-1 text-gray-900 mt-1">
+                        {item['Dish']}
+                      </label>
                     </div>
                   ))}
                 </div>
               ) : null}
 
               {/* Column 2: Welcome Message */}
-              {Array.isArray(datum) && datum.length > 0 && (
-                <div className="flex flex-col items-center border border-indigo-600 rounded-md shadow-xl  ml-5 p-16 mr-5">
+              {Array.isArray(datum) && dishes.length > 0 && (
+                <div className="flex flex-col items-start ml-5 pr-5 pb-5 pl-5 mr-5 border border-indigo-600 rounded-md shadow-xl relative">
                   <div>
                     {dishes.map((dish) => (
                       <div key={dish.id}>
