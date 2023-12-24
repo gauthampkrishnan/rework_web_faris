@@ -97,7 +97,7 @@ function PageFour() {
                     className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
                   >
                     <img
-                      src="https://www.shutterstock.com/image-photo/bombay-biryani-white-plate-traditional-260nw-1955973904.jpg"
+                      src="https://static01.nyt.com/images/2023/11/29/multimedia/ND-Biryani-zpkh/ND-Biryani-zpkh-threeByTwoMediumAt2X.jpg"
                       alt="product-image"
                       className="w-full rounded-lg sm:w-40"
                     />
