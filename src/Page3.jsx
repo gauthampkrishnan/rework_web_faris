@@ -63,26 +63,6 @@ function PageThree() {
     setCartOrderNumber(data.dishes.length);
   };
 
-  const handleDelete = (dishId) => {
-    const dishTobeRemoved = dishes.find((dish) => dish.id === dishId);
-    if (dishTobeRemoved) {
-      const value =
-        pendingBudget + dishTobeRemoved.cost * dishTobeRemoved.quantity;
-      if (value > 0 && belowZero) {
-        setBelowZero(false);
-      }
-      setPendingBudget(value);
-      setTotalBudget(
-        totalBudget - dishTobeRemoved.cost * dishTobeRemoved.quantity,
-      );
-    }
-    setDishes((currentDishes) =>
-      currentDishes.filter((dish) => dish.id !== dishId),
-    );
-    const filteredData = dishes.filter((dish) => dish.id !== dishId);
-    handleSetData('dishes', filteredData);
-  };
-
   // Handle changes to budgetValue
   useEffect(() => {
     setPendingBudget(data.plannedBudget);
