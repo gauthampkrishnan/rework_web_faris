@@ -11,40 +11,11 @@ function PageThree() {
   const handleBack = () => {
     navigate('/page-two');
   };
-  const handleDownload = async () => {
-    console.log('Submitting data:', data);
-    try {
-      const response = await fetch(
-        `https://server-faris-a02ca80e363b.herokuapp.com/generate-pdf`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        },
-      );
 
-      if (response.ok) {
-        // Assuming the server sends back a PDF file as a response
-        const blob = await response.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = 'data.pdf'; // You can name the download as you wish
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(downloadUrl);
-        a.remove();
-      } else {
-        // Handle any errors returned by the server here
-        console.error('Server responded with a status:', response.status);
-      }
-    } catch (error) {
-      // Handle the error here
-      console.error('An error occurred:', error);
-    }
+  const handleNext = () => {
+    navigate('/page-four');
   };
+
   const { data, handleSetData } = useContext(DataContext);
 
   const [selectedItem, setSelectedItem] = useState('');
@@ -54,6 +25,7 @@ function PageThree() {
   const [totalBudget, setTotalBudget] = useState(0);
   const [pendingBudget, setPendingBudget] = useState(0);
   const [belowZero, setBelowZero] = useState(false);
+  const [cart, setCartOrderNumber] = useState(0);
 
   const handleCheckBoxSelected = (dataType) => {
     setSelectedItem(dataType === selectedItem ? '' : dataType);
@@ -66,11 +38,29 @@ function PageThree() {
         .then((res) => res.json())
         .then((json) => {
           setData(json['result']);
+          console.log(json);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
     }
+  };
+
+  const AddToCart = (e, cartData) => {
+    let existingItemIndex = data.dishes.findIndex(
+      (item) => item.Dish === cartData.Dish,
+    );
+    if (existingItemIndex !== -1) {
+      if (data.dishes[existingItemIndex].hasOwnProperty('quantity')) {
+        data.dishes[existingItemIndex].quantity += 1;
+      } else {
+        data.dishes[existingItemIndex].quantity = 2;
+      }
+    } else {
+      cartData.quantity = 1;
+      data.dishes.push(cartData);
+    }
+    setCartOrderNumber(data.dishes.length);
   };
 
   const handleDelete = (dishId) => {
@@ -149,6 +139,40 @@ function PageThree() {
       <h1 className="text-center text-2xl font-bold leading-8 tracking-tight text-gray-900">
         Sitar Catering Order Service{' '}
       </h1>
+      <div class="fixed top-3 right-4 md:top-4 md:right-4">
+        <div class="fixed top-4 right-8">
+          <div class="relative">
+            <svg
+              fill="#000000"
+              height="20px"
+              width="20px"
+              viewBox="0 0 455.297 455.297"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g>
+                <circle cx="65.993" cy="417.586" r="35" />
+                <path d="M30.993,322.586v30h182.879c-5.914-9.267-10.676-19.335-14.094-30H30.993z" />
+                <path
+                  d="M323.059,183.727c-54.826,0-99.431,44.604-99.431,99.429s44.604,99.429,99.431,99.429
+                    c54.825,0,99.429-44.604,99.429-99.429S377.884,183.727,323.059,183.727z M384.559,298.157h-46.5v46.5h-30v-46.5h-46.5v-30h46.5
+                    v-46.5h30v46.5h46.5V298.157z"
+                />
+                <path
+                  d="M393.673,2.711l-12.294,75H0l25.888,158.454c2.833,17.282,19.479,31.422,36.992,31.422h131.688
+                    c7.715-64.052,62.392-113.859,128.49-113.859c26.887,0,51.884,8.244,72.6,22.333l23.496-143.349h36.142v-30H393.673z"
+                />
+                <path
+                  d="M323.059,412.586c-12.147,0-23.907-1.686-35.062-4.829c-0.912,3.118-1.404,6.416-1.404,9.829c0,19.33,15.67,35,35,35
+                    c19.33,0,35-15.67,35-35c0-3.145-0.421-6.19-1.2-9.089C345.054,411.166,334.219,412.586,323.059,412.586z"
+                />
+              </g>
+            </svg>
+            <span class="absolute -top-2 -right-1 bg-indigo-600 text-white text-xs rounded-full px-1">
+              {cart}
+            </span>
+          </div>
+        </div>
+      </div>
       <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -163,187 +187,201 @@ function PageThree() {
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-lg flex flex-col align-center justify-center">
           <div className="space-y-6 w-full text-center">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 align-center justify-center">
-              <div className="flex items-center space-x-2">
+            <div class="grid grid-cols-4 gap-4">
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="appetizer"
-                  name="appetizer"
-                  type="checkbox"
-                  autoComplete="off"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                   checked={selectedItem === 'Appetizer'}
                   onChange={() => handleCheckBoxSelected('Appetizer')}
                   required
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                 />
-                <label
-                  htmlFor="appetizer"
-                  className="text-sm font-medium text-gray-900"
-                >
-                  Appetizer
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">Appetizer</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="chicken"
-                  name="chicken"
-                  type="checkbox"
-                  autoComplete="off"
-                  required
-                  checked={selectedItem === 'Chicken'}
-                  onChange={() => handleCheckBoxSelected('Chicken')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="chicken"
-                  className="text-sm font-medium text-gray-900"
-                >
-                  Chicken
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">Chicken</span>
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="beverages"
-                  name="beverages"
-                  type="checkbox"
-                  autoComplete="off"
-                  required
-                  checked={selectedItem === 'Beverages'}
-                  onChange={() => handleCheckBoxSelected('Beverages')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="beverages"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  Beverages
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">Beverages</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="seafoods"
-                  name="seafoods"
-                  type="checkbox"
-                  autoComplete="off"
-                  required
-                  checked={selectedItem === 'Seafoods'}
-                  onChange={() => handleCheckBoxSelected('Seafoods')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="seafoods"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  Seafoods
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">Seafoods</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="desserts"
-                  name="desserts"
-                  type="checkbox"
-                  autoComplete="off"
-                  required
-                  checked={selectedItem === 'Deserts'}
-                  onChange={() => handleCheckBoxSelected('Deserts')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="desserts"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  Desserts
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">Desserts</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="breakfast"
-                  name="breakfast"
-                  type="checkbox"
-                  autoComplete="off"
-                  required
-                  checked={selectedItem === 'Breakfast'}
-                  onChange={() => handleCheckBoxSelected('Breakfast')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="breakfast"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  Breakfast
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">Breakfast</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="soup"
-                  name="soup"
-                  type="checkbox"
-                  autoComplete="off"
-                  checked={selectedItem === 'Soup'}
-                  onChange={() => handleCheckBoxSelected('Soup')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="soup"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  Soup
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">Soup</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="maincourse"
-                  name="maincourse"
-                  type="checkbox"
-                  autoComplete="off"
-                  checked={selectedItem === 'Main Course'}
-                  onChange={() => handleCheckBoxSelected('Main Course')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="maincourse"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  Main Course
-                </label>
-              </div>
-              <div className="flex items-center ">
+                <span id="size-choice-0-label">Main course</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="southindianspecial"
-                  name="southindianspecial"
-                  type="checkbox"
-                  autoComplete="off"
-                  required
-                  checked={selectedItem === 'South Indian Special'}
-                  onChange={() =>
-                    handleCheckBoxSelected('South Indian Special')
-                  }
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="southindianspecial"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  South Indian Special
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span id="size-choice-0-label">South iNDIAN SPECIAL</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
-                  id="chefspecial"
-                  name="chefspecial"
-                  type="checkbox"
-                  autoComplete="off"
-                  required
-                  checked={selectedItem === 'Chef Special'}
-                  onChange={() => handleCheckBoxSelected('Chef Special')}
-                  className="rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
                 />
-                <label
-                  htmlFor="chefspecial"
-                  className="text-sm font-medium text-gray-900 "
-                >
-                  Chef Special
-                </label>
-              </div>
+                <span id="size-choice-0-label">Chef special</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+            </div>
+          </div>
+
+          <div className="mt-5">
+            <div className="flex flex-col md:flex-row justify-center gap-4">
+              {Array.isArray(datum) && datum.length > 0
+                ? datum.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col border border-indigo-600 p-8 rounded-md shadow-xl items-center justify-center w-full md:w-auto mb-3 flex-grow"
+                      style={{ minWidth: '250px' }} // Minimum width to prevent the boxes from getting too small
+                    >
+                      <label className="text-sm font-medium text-gray-900">
+                        Dish: {item['Dish']}
+                      </label>
+                      <label className="text-sm font-medium text-gray-900">
+                        Cost: {item['Cost']}
+                      </label>
+                      <input
+                        type="button"
+                        value="Add to Cart"
+                        className="w-24 h-8 mt-1 border border-indigo-600 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
+                        onClick={(e) => AddToCart(e, item)}
+                      />
+                      {/* <input
+                        type="number"
+                        placeholder="Qty"
+                        className="w-16 px-1 py-1 border border-gray-400 rounded mt-2"
+                        onChange={(e) => handleQuantityChange(e, item.id)}
+                      /> */}
+                    </div>
+                  ))
+                : null}
             </div>
           </div>
 
@@ -360,65 +398,14 @@ function PageThree() {
             <div className="flex ">
               <button
                 type="submit"
-                onClick={handleDownload}
+                onClick={handleNext}
                 className="flex  justify-center  rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Download Reciept
+                Go to Cart
               </button>
             </div>
           </div>
-          <div className="flex justify-center mt-5">
-            <div className="flex flex-row">
-              {/* Column 1: Iterated Data */}
-              {Array.isArray(datum) && datum.length > 0 ? (
-                <div className="flex flex-col items-start ml-5 pr-5 pb-5 pl-5 mr-8 border border-indigo-600 rounded-md shadow-xl relative">
-                  {datum.map((item, index) => (
-                    <div key={index} className="flex w-full items-start">
-                      <input
-                        className="form-checkbox rounded-md border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 mt-1"
-                        type="checkbox"
-                        value={item['Dish']}
-                        checked={checkboxStatus[index]}
-                        onChange={(e) => handleSelect(index, e, item['Cost'])}
-                      />
-                      <label className="text-sm font-medium ml-1 text-gray-900 mt-1">
-                        {item['Dish']}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-
-              {/* Column 2: Welcome Message */}
-              {Array.isArray(datum) && dishes.length > 0 && (
-                <div className="flex flex-col items-start ml-8 pr-8 pb-5 pl-5 mr-5 border border-indigo-600 rounded-md shadow-xl relative">
-                  <div>
-                    {dishes.map((dish) => (
-                      <div key={dish.id}>
-                        <p key={dish.id}>{dish['item']}</p>
-                        <div className="space-x-1">
-                          <button
-                            className="bg-indigo-600 px-1 text-sm  text-white rounded"
-                            onClick={() => handleDelete(dish.id)}
-                          >
-                            Delete
-                          </button>
-                          <input
-                            type="number"
-                            placeholder="Quantity"
-                            className="w-16 px-1 py-1 border  border-gray-400 rounded"
-                            onChange={(e) => handleQuantityChange(e, dish.id)}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="inset-x-0 bottom-0 flex justify-center gap-4 mt-8">
+          {/* <div className="inset-x-0 bottom-0 flex justify-center gap-4 mt-8">
             <div className="flex flex-col items-center justify-center border  border-indigo-600 rounded shadow-xl   p-8">
               <p className="text-gray-900 font-md ">Pending Budget</p>
               <h1 className="text-center">
@@ -429,7 +416,7 @@ function PageThree() {
               <p className="text-gray-900 font-md ">Total Budget</p>
               <h1 className="text-center">${data.plannedBudget}</h1>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
