@@ -87,7 +87,7 @@ function PageFour() {
             Order Cart
           </h2>
         </div>
-        <div className="h-screen bg-gray-100 pt-20">
+        <div className="flex min-h-screen w-full flex-col bg-gray-100">
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             <div className="rounded-lg md:w-2/3">
               {data.dishes.map((dish, dishIndex) => (
@@ -175,17 +175,15 @@ function PageFour() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row gap-4 align-center justify-center mt-8">
-          <div className="flex ">
-            <button
-              type="submit"
-              onClick={handleBack}
-              className="flex  justify-center  rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Go Back
-            </button>
-          </div>
-        </div>
+      </div>
+      <div className="mt-5 flex w-full flex-col items-center justify-center px-4 sm:px-0">
+        <button
+          type="button"
+          onClick={handleBack}
+          className="mt-4 w-full rounded-md bg-indigo-600 py-2 px-4 text-sm font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto"
+        >
+          Go Back
+        </button>
       </div>
     </>
   );

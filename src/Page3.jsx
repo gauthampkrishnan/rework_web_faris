@@ -194,6 +194,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Chicken')}
+                  checked={selectedItem === 'Chicken'}
                 />
                 <span id="size-choice-0-label">Chicken</span>
                 <span
@@ -209,6 +211,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Beverages')}
+                  checked={selectedItem === 'Beverages'}
                 />
                 <span id="size-choice-0-label">Beverages</span>
 
@@ -225,6 +229,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Seafoods')}
+                  checked={selectedItem === 'Seafoods'}
                 />
                 <span id="size-choice-0-label">Seafoods</span>
 
@@ -241,6 +247,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Desserts')}
+                  checked={selectedItem === 'Desserts'}
                 />
                 <span id="size-choice-0-label">Desserts</span>
 
@@ -257,6 +265,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Breakfast')}
+                  checked={selectedItem === 'Breakfast'}
                 />
                 <span id="size-choice-0-label">Breakfast</span>
 
@@ -273,6 +283,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Soup')}
+                  checked={selectedItem === 'Soup'}
                 />
                 <span id="size-choice-0-label">Soup</span>
 
@@ -289,6 +301,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Main Course')}
+                  checked={selectedItem === 'Main Course'}
                 />
                 <span id="size-choice-0-label">Main course</span>
 
@@ -305,8 +319,12 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() =>
+                    handleCheckBoxSelected('South Indian Special')
+                  }
+                  checked={selectedItem === 'South Indian Special'}
                 />
-                <span id="size-choice-0-label">South iNDIAN SPECIAL</span>
+                <span id="size-choice-0-label">South Indian Special</span>
 
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
@@ -321,6 +339,8 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Chef Special')}
+                  checked={selectedItem === 'Chef Special'}
                 />
                 <span id="size-choice-0-label">Chef special</span>
 
