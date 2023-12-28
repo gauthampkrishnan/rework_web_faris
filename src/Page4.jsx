@@ -87,7 +87,7 @@ function PageFour() {
             Order Cart
           </h2>
         </div>
-        <div className="flex min-h-screen w-full flex-col bg-gray-100">
+        <div className="w-full bg-gray-100 pt-20">
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             <div className="rounded-lg md:w-2/3">
               {data.dishes.map((dish, dishIndex) => (
