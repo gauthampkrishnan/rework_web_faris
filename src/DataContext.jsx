@@ -8,22 +8,21 @@ export const DataProvider = ({ children }) => {
     name: '',
     email: '',
     phoneNumber: '',
-    eventTypes:'',
-    eventLocation:'',
-    birthday:"2023-01-01",
-    plannedBudget:0,
-    eventPhone:'',
-    perHead:true,
-    perHeadCount:'',
-    dishes:[],
-    time:''
+    eventTypes: '',
+    eventLocation: '',
+    birthday: '2023-01-01',
+    plannedBudget: 0,
+    eventPhone: '',
+    perHead: true,
+    perHeadCount: '',
+    dishes: [],
+    time: '',
+    cartItems: 0,
     // Add additional fields as needed
   });
 
   const handleSetData = (fieldName, value) => {
-
     setData((prevData) => ({ ...prevData, [fieldName]: value }));
-   
   };
 
   return (

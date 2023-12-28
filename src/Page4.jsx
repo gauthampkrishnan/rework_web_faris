@@ -15,6 +15,30 @@ function PageFour() {
     navigate('/page-three');
   };
 
+  const handleIncreaseQuantity = (dishId) => {
+    const updatedDishes = data.dishes.map((dish, index) => {
+      if (index === dishId) {
+        return { ...dish, quantity: dish.quantity + 1 };
+      }
+      return dish;
+    });
+
+    // Now, update only the dishes field
+    handleSetData('dishes', updatedDishes);
+  };
+
+  const handleDecreaseQuantity = (dishId) => {
+    const updatedDishes = data.dishes.map((dish, index) => {
+      if (index === dishId && dish.quantity !== 1) {
+        return { ...dish, quantity: dish.quantity - 1 };
+      }
+      return dish;
+    });
+
+    // Now, update only the dishes field
+    handleSetData('dishes', updatedDishes);
+  };
+
   const [forceUpdate, setForceUpdate] = useState(false);
 
   const handleDelete = (dish) => {
@@ -113,7 +137,10 @@ function PageFour() {
                       </div>
                       <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center border-gray-100">
-                          <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50 ">
+                          <span
+                            className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50 "
+                            onClick={() => handleIncreaseQuantity(dishIndex)}
+                          >
                             +
                           </span>
                           <input
@@ -122,7 +149,10 @@ function PageFour() {
                             value={dish['quantity'] ?? 1}
                             min="1"
                           />
-                          <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                          <span
+                            className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                            onClick={() => handleDecreaseQuantity(dishIndex)}
+                          >
                             -
                           </span>
                         </div>
