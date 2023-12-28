@@ -113,14 +113,18 @@ function PageFour() {
                       </div>
                       <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center border-gray-100">
-                          <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"></span>
+                          <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50 ">
+                            +
+                          </span>
                           <input
                             className="h-8 w-12 border bg-white text-center text-xs outline-none"
                             type="number"
                             value={dish['quantity'] ?? 1}
                             min="1"
                           />
-                          <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"></span>
+                          <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                            -
+                          </span>
                         </div>
                         <div className="flex items-center space-x-4">
                           <p className="text-sm">{dish['Cost']} $</p>{' '}
