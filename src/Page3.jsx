@@ -165,10 +165,10 @@ function PageThree() {
           </h2>
         </div>
 
-        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-lg flex flex-col align-center justify-center">
+        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-md md:max-w-lg flex flex-col items-center justify-center">
           <div className="space-y-6 w-full text-center">
-            <div class="grid grid-cols-4 gap-4">
-              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-xs sm:text-sm md:text-base font-medium uppercase hover:bg-gray-50 focus:outline-none flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
                 <input
                   type="radio"
                   name="size-choice"
