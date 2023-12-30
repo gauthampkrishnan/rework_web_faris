@@ -52,13 +52,16 @@ function PageFour() {
 
   const sendOrder = async () => {
     try {
-      const response = await fetch('http://localhost:8000/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        'https://server-faris-a02ca80e363b.herokuapp.com/send-email',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data), // assuming 'data' holds your order details
         },
-        body: JSON.stringify(data), // assuming 'data' holds your order details
-      });
+      );
 
       if (response.ok) {
         // Show the banner with a success message
