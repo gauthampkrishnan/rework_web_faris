@@ -383,25 +383,30 @@ function PageThree() {
             </div>
           </div>
 
-          <div className="mt-5">
-            <div className="flex flex-col md:flex-row justify-center gap-4">
+          <div className="mt-5 px-4 md:px-0">
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-2 gap-4">
               {Array.isArray(datum) && datum.length > 0
                 ? datum.map((item, index) => (
                     <div
                       key={index}
-                      className="flex flex-col border border-indigo-600 p-8 rounded-md shadow-xl items-center justify-center w-full md:w-auto mb-3 flex-grow"
-                      style={{ minWidth: '250px' }} // Minimum width to prevent the boxes from getting too small
+                      className="flex flex-col border border-indigo-600 p-4 rounded-md shadow-lg items-center justify-between min-h-[100px] h-auto"
                     >
-                      <label className="text-sm font-medium text-gray-900">
-                        Dish: {item['Dish']}
-                      </label>
-                      <label className="text-sm font-medium text-gray-900">
-                        Cost: ${item['Cost']}
-                      </label>
+                      <div className="flex flex-col ">
+                        <div className="flex items-center justify-center">
+                          <label className="text-sm font-medium text-gray-900 overflow-hidden">
+                            Dish: {item['Dish']}
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-center">
+                          <label className="text-sm font-medium text-gray-900">
+                            Cost: ${item['Cost']}
+                          </label>
+                        </div>
+                      </div>
                       <input
                         type="button"
                         value="Add to Cart"
-                        className="w-24 h-8 mt-1 border border-indigo-600 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
+                        className="w-full mt-2 border border-indigo-600 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
                         onClick={(e) => AddToCart(e, item)}
                       />
                     </div>
