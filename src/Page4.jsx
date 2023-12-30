@@ -11,6 +11,8 @@ function PageFour() {
   const [totalCost, setTotalCost] = useState(0);
   const [remainingCost, setRemainingCost] = useState(0);
 
+  const [emailError, setEmailError] = useState('');
+  const [bannerMessage, setBannerMessage] = useState('');
   const handleBack = () => {
     navigate('/page-three');
   };
@@ -49,40 +51,31 @@ function PageFour() {
   };
 
   const sendOrder = async () => {
-    console.log('Hi');
-    console.log('welcome');
-    // console.log('Submitting data:', data);
-    // try {
-    //   const response = await fetch(
-    //     `https://server-faris-a02ca80e363b.herokuapp.com/generate-pdf`,
-    //     {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(data),
-    //     },
-    //   );
+    try {
+      const response = await fetch('http://localhost:8000/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // assuming 'data' holds your order details
+      });
 
-    //   if (response.ok) {
-    //     // Assuming the server sends back a PDF file as a response
-    //     const blob = await response.blob();
-    //     const downloadUrl = window.URL.createObjectURL(blob);
-    //     const a = document.createElement('a');
-    //     a.href = downloadUrl;
-    //     a.download = 'data.pdf'; // You can name the download as you wish
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     window.URL.revokeObjectURL(downloadUrl);
-    //     a.remove();
-    //   } else {
-    //     // Handle any errors returned by the server here
-    //     console.error('Server responded with a status:', response.status);
-    //   }
-    // } catch (error) {
-    //   // Handle the error here
-    //   console.error('An error occurred:', error);
-    // }
+      if (response.ok) {
+        // Show the banner with a success message
+        setBannerMessage('Email sent successfully!');
+        setTimeout(() => {
+          setBannerMessage('');
+        }, 5000);
+      } else {
+        // Show the banner with an error message
+        setBannerMessage('Failed to send email. Please try again.');
+        setTimeout(() => {
+          setBannerMessage('');
+        }, 5000);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -110,6 +103,12 @@ function PageFour() {
           <h2 className="mt-2 mb-4 text-center text-2xl leading-6 tracking-tight text-gray-900">
             Order Cart
           </h2>
+          {/* Conditionally render the success banner */}
+          {bannerMessage && (
+            <div className="fixed top-0 left-0 right-0 bg-indigo-600 text-white text-center p-3 z-50">
+              {bannerMessage}
+            </div>
+          )}
         </div>
         <div className="w-full bg-gray-100 pt-20">
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
@@ -224,3 +223,24 @@ function PageFour() {
 }
 
 export default PageFour;
+
+// if (response.ok) {
+//     // Assuming the server sends back a PDF file as a response
+//     const blob = await response.blob();
+//     const downloadUrl = window.URL.createObjectURL(blob);
+//     const a = document.createElement('a');
+//     a.href = downloadUrl;
+//     a.download = 'data.pdf'; // You can name the download as you wish
+//     document.body.appendChild(a);
+//     a.click();
+//     window.URL.revokeObjectURL(downloadUrl);
+//     a.remove();
+//   } else {
+//     // Handle any errors returned by the server here
+//     console.error('Server responded with a status:', response.status);
+//   }
+// } catch (error) {
+//   // Handle the error here
+//   console.error('An error occurred:', error);
+// }
+// `https://server-faris-a02ca80e363b.herokuapp.com/generate-pdf`
