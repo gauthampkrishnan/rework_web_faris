@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import Image3 from '../Image03.png';
 import DataContext from './DataContext';
@@ -67,46 +66,6 @@ function PageThree() {
   useEffect(() => {
     setPendingBudget(data.plannedBudget);
   }, [data.plannedBudget]);
-
-  const handleQuantityChange = (event, index) => {
-    const value = event.target.value;
-    const dishV = dishes.find((dish) => dish.id === index);
-    if (dishV) {
-      const cost = dishV.cost;
-      const totalCost = value * cost;
-      // Update the individual dish cost
-      const updatedDishes = [...dishes];
-      dishV.quantity = value; // Add quantity to the dish object
-      dishV.totalCost = totalCost; // Add totalCost to the dish object
-      setDishes(updatedDishes);
-      handleSetData('dishes', [updatedDishes]);
-      // Update total budget
-      const newTotalBudget = dishes.reduce(
-        (acc, dish) => acc + (dish.quantity || 0) * dish.cost,
-        0,
-      );
-      setTotalBudget(newTotalBudget);
-      if (data.plannedBudget - newTotalBudget < 0) {
-        setBelowZero(true);
-        setPendingBudget(data.plannedBudget - newTotalBudget);
-      } else {
-        setPendingBudget(data.plannedBudget - newTotalBudget);
-      }
-    }
-  };
-
-  const handleSelect = (index, e, cost) => {
-    if (e.target.checked) {
-      setDishes((currentDishes) => [
-        ...currentDishes,
-        { id: uuidv4(), item: e.target.value, cost: cost },
-      ]);
-    }
-    // Update checkbox status
-    const updatedStatus = [...checkboxStatus];
-    updatedStatus[index] = !updatedStatus[index];
-    setCheckboxStatus(updatedStatus);
-  };
 
   useEffect(() => {
     if (datum) {
@@ -176,7 +135,7 @@ function PageThree() {
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
                   checked={selectedItem === 'Appetizer'}
-                  onChange={() => handleCheckBoxSelected('Appetizer')}
+                  onChange={() => handleCheckBoxSelected('Appetizers')}
                   required
                 />
                 <span id="size-choice-0-label">Appetizer</span>
@@ -194,10 +153,10 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
-                  onChange={() => handleCheckBoxSelected('Chicken')}
-                  checked={selectedItem === 'Chicken'}
+                  onChange={() => handleCheckBoxSelected('Biriyani')}
+                  checked={selectedItem === 'Biriyani'}
                 />
-                <span id="size-choice-0-label">Chicken</span>
+                <span id="size-choice-0-label">Biriyani</span>
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
                   aria-hidden="true"
@@ -211,10 +170,10 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
-                  onChange={() => handleCheckBoxSelected('Beverages')}
-                  checked={selectedItem === 'Beverages'}
+                  onChange={() => handleCheckBoxSelected('Breads')}
+                  checked={selectedItem === 'Breads'}
                 />
-                <span id="size-choice-0-label">Beverages</span>
+                <span id="size-choice-0-label">Breads</span>
 
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
@@ -229,10 +188,28 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
-                  onChange={() => handleCheckBoxSelected('Seafoods')}
-                  checked={selectedItem === 'Seafoods'}
+                  onChange={() => handleCheckBoxSelected('Soups')}
+                  checked={selectedItem === 'Soups'}
                 />
-                <span id="size-choice-0-label">Seafoods</span>
+                <span id="size-choice-0-label">Soups</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                <input
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Salads')}
+                  checked={selectedItem === 'Salads'}
+                />
+                <span id="size-choice-0-label">Salads</span>
 
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
@@ -265,10 +242,10 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
-                  onChange={() => handleCheckBoxSelected('Breakfast')}
-                  checked={selectedItem === 'Breakfast'}
+                  onChange={() => handleCheckBoxSelected('Beverages')}
+                  checked={selectedItem === 'Beverages'}
                 />
-                <span id="size-choice-0-label">Breakfast</span>
+                <span id="size-choice-0-label">Beverages</span>
 
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
@@ -283,28 +260,10 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
-                  onChange={() => handleCheckBoxSelected('Soup')}
-                  checked={selectedItem === 'Soup'}
+                  onChange={() => handleCheckBoxSelected(`Chef's Specials`)}
+                  checked={selectedItem === `Chef's Specials`}
                 />
-                <span id="size-choice-0-label">Soup</span>
-
-                <span
-                  class="pointer-events-none absolute -inset-px rounded-md"
-                  aria-hidden="true"
-                ></span>
-              </label>
-
-              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
-                <input
-                  type="radio"
-                  name="size-choice"
-                  value="XXS"
-                  class="sr-only"
-                  aria-labelledby="size-choice-0-label"
-                  onChange={() => handleCheckBoxSelected('Main Course')}
-                  checked={selectedItem === 'Main Course'}
-                />
-                <span id="size-choice-0-label">Main course</span>
+                <span id="size-choice-0-label">Chef's Specials</span>
 
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
@@ -319,12 +278,10 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
-                  onChange={() =>
-                    handleCheckBoxSelected('South Indian Special')
-                  }
-                  checked={selectedItem === 'South Indian Special'}
+                  onChange={() => handleCheckBoxSelected('Dosas')}
+                  checked={selectedItem === 'Dosas'}
                 />
-                <span id="size-choice-0-label">South Indian Special</span>
+                <span id="size-choice-0-label">Dosas</span>
 
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
@@ -339,10 +296,84 @@ function PageThree() {
                   value="XXS"
                   class="sr-only"
                   aria-labelledby="size-choice-0-label"
-                  onChange={() => handleCheckBoxSelected('Chef Special')}
-                  checked={selectedItem === 'Chef Special'}
+                  onChange={() => handleCheckBoxSelected('Vegetarian Curry')}
+                  checked={selectedItem === 'Vegetarian Curry'}
                 />
-                <span id="size-choice-0-label">Chef special</span>
+                <span id="size-choice-0-label">Vegetarian Curry</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                <input
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
+                  onChange={() =>
+                    handleCheckBoxSelected('Non Vegetarian Curry')
+                  }
+                  checked={selectedItem === 'Non Vegetarian Curry'}
+                />
+                <span id="size-choice-0-label">Non Vegetarian Curry</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                <input
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('SeaFood')}
+                  checked={selectedItem === 'SeaFood'}
+                />
+                <span id="size-choice-0-label">Sea Food</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                <input
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Tandoor')}
+                  checked={selectedItem === 'Tandoor'}
+                />
+                <span id="size-choice-0-label">Tandoor</span>
+
+                <span
+                  class="pointer-events-none absolute -inset-px rounded-md"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+              <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                <input
+                  type="radio"
+                  name="size-choice"
+                  value="XXS"
+                  class="sr-only"
+                  aria-labelledby="size-choice-0-label"
+                  onChange={() => handleCheckBoxSelected('Thali Meal')}
+                  checked={selectedItem === 'Thali Meal'}
+                />
+                <span id="size-choice-0-label">Thali Meal</span>
 
                 <span
                   class="pointer-events-none absolute -inset-px rounded-md"
@@ -365,7 +396,7 @@ function PageThree() {
                         Dish: {item['Dish']}
                       </label>
                       <label className="text-sm font-medium text-gray-900">
-                        Cost: {item['Cost']}
+                        Cost: ${item['Cost']}
                       </label>
                       <input
                         type="button"
@@ -373,12 +404,6 @@ function PageThree() {
                         className="w-24 h-8 mt-1 border border-indigo-600 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
                         onClick={(e) => AddToCart(e, item)}
                       />
-                      {/* <input
-                        type="number"
-                        placeholder="Qty"
-                        className="w-16 px-1 py-1 border border-gray-400 rounded mt-2"
-                        onChange={(e) => handleQuantityChange(e, item.id)}
-                      /> */}
                     </div>
                   ))
                 : null}
@@ -405,18 +430,6 @@ function PageThree() {
               </button>
             </div>
           </div>
-          {/* <div className="inset-x-0 bottom-0 flex justify-center gap-4 mt-8">
-            <div className="flex flex-col items-center justify-center border  border-indigo-600 rounded shadow-xl   p-8">
-              <p className="text-gray-900 font-md ">Pending Budget</p>
-              <h1 className="text-center">
-                ${pendingBudget < 0 ? 0 : pendingBudget}
-              </h1>
-            </div>
-            <div className="flex flex-col items-center justify-center border border-indigo-600 rounded shadow-xl  p-8">
-              <p className="text-gray-900 font-md ">Total Budget</p>
-              <h1 className="text-center">${data.plannedBudget}</h1>
-            </div>
-          </div> */}
         </div>
       </div>
     </>
