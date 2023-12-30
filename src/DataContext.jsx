@@ -8,7 +8,7 @@ export const DataProvider = ({ children }) => {
     name: '',
     email: '',
     phoneNumber: '',
-    eventTypes: '',
+    eventTypes: 'Birth Day Party',
     eventLocation: '',
     birthday: '2023-01-01',
     plannedBudget: 0,
