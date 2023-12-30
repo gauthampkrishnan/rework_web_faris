@@ -123,7 +123,7 @@ function PageFour() {
                     className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
                   >
                     <img
-                      src="https://static01.nyt.com/images/2023/11/29/multimedia/ND-Biryani-zpkh/ND-Biryani-zpkh-threeByTwoMediumAt2X.jpg"
+                      src="https://uploads-ssl.webflow.com/5fe0022130b6119c3b25d03f/6000a4262c3c62f6aadb85d3_shutterstock_1044844045.jpg"
                       alt="product-image"
                       className="w-full rounded-lg sm:w-40"
                     />
@@ -132,9 +132,9 @@ function PageFour() {
                         <h2 className="text-lg font-bold text-gray-900">
                           {dish['Dish']} {/* Replace with dynamic content */}
                         </h2>
-                        <p className="mt-1 text-xs text-gray-700">
+                        {/* <p className="mt-1 text-xs text-gray-700">
                           {'Some text'}
-                        </p>{' '}
+                        </p>{' '} */}
                         {/* Dynamic size */}
                       </div>
                       <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
