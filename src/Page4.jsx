@@ -52,6 +52,8 @@ function PageFour() {
 
   const sendOrder = async () => {
     try {
+      data.Total = totalCost;
+      let dataToSend = JSON.stringify(data);
       const response = await fetch(
         'https://server-faris-a02ca80e363b.herokuapp.com/send-email',
         {
@@ -59,7 +61,7 @@ function PageFour() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data), // assuming 'data' holds your order details
+          body: dataToSend, // assuming 'data' holds your order details
         },
       );
 

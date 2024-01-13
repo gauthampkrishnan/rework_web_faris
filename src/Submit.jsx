@@ -6,16 +6,18 @@ function SubmitButton() {
   // const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async () => {
-    console.log('Submitting data:', data);
     try {
-      const response = await fetch(`https://server-faris-a02ca80e363b.herokuapp.com/generate-pdf`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await fetch(
+        `https://server-faris-a02ca80e363b.herokuapp.com/generate-pdf`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data)
-      });
-  
+      );
+
       if (response.ok) {
         // Assuming the server sends back a PDF file as a response
         const blob = await response.blob();
@@ -37,9 +39,7 @@ function SubmitButton() {
     }
   };
 
-  return (
-    <button onClick={handleSubmit}>Generate PDF</button>
-  );
+  return <button onClick={handleSubmit}>Generate PDF</button>;
 }
 
 export default SubmitButton;
